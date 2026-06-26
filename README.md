@@ -12,7 +12,7 @@ An autonomous planning and scheduling assistant that extracts micro-tasks from m
 
 ### 2. Interactive Scheduling Timeline
 **How it works:** Once tasks are extracted, they are automatically arranged on your daily timeline. You can view your schedule hour-by-hour, ensuring deadlines are met and tasks fit perfectly around your existing calendar commitments.
-Screenshot 2026-06-26 at 9.46.17 PM
+![Interactive Scheduling Timeline](./timeline-screenshot.png)
 
 ### 3. Distraction-Free Focus Mode
 **How it works:** When it's time to execute, enter "Focus Mode." The interface strips away all distractions, showing only the active task, a timer tracking your focused minutes, and essential controls to complete or pause the task.
