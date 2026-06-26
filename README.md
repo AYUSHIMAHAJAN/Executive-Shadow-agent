@@ -4,34 +4,37 @@ An autonomous planning and scheduling assistant that extracts micro-tasks from m
 
 ---
 
-## 📸 Interface Previews
+## ✨ Core Features & How They Work
 
-Here are some glimpses of the visual aesthetic and design themes available within the application:
+### 1. Intelligent Task Ingestion
+**How it works:** Paste in messy, unstructured text (like a raw voice transcript or a forwarded email chain). The AI automatically parses the text, extracts actionable micro-tasks, assigns priorities, and estimates time requirements. 
+> *[📸 Screenshot Placeholder: Show the text input area with a raw transcript and the resulting parsed task cards]*
 
-<div align="center">
-  <img src="src/assets/images/minimalist_dashboard_ui_1782445761941.jpg" alt="Minimalist Dashboard" width="30%">
-  <img src="src/assets/images/glassmorphism_dashboard_ui_1782445793346.jpg" alt="Glassmorphism UI" width="30%">
-  <img src="src/assets/images/dark_terminal_ui_1782445778858.jpg" alt="Dark Terminal Theme" width="30%">
-</div>
+### 2. Interactive Scheduling Timeline
+**How it works:** Once tasks are extracted, they are automatically arranged on your daily timeline. You can view your schedule hour-by-hour, ensuring deadlines are met and tasks fit perfectly around your existing calendar commitments.
+> *[📸 Screenshot Placeholder: Show the daily timeline view with scheduled tasks and deadlines]*
+
+### 3. Distraction-Free Focus Mode
+**How it works:** When it's time to execute, enter "Focus Mode." The interface strips away all distractions, showing only the active task, a timer tracking your focused minutes, and essential controls to complete or pause the task.
+> *[📸 Screenshot Placeholder: Show the clean, minimalist Focus Mode screen with the active timer]*
+
+### 4. AI-Powered Chat Assistant
+**How it works:** Need to reorganize your day or summarize a brief? Open the Chat Assistant. Powered by the Gemini API, it acts as your "Shadow Assistant," understanding your schedule and helping you prioritize on the fly.
+> *[📸 Screenshot Placeholder: Show the Chat Assistant panel with an example conversation]*
+
+### 5. Productivity Analytics Dashboard
+**How it works:** Track your progress over time. The analytics dashboard visualizes your completed tasks, focus hours, and priority burndown using interactive charts, giving you insights into your most productive times.
+> *[📸 Screenshot Placeholder: Show the Analytics Dashboard with Recharts visualizations]*
 
 ---
 
-## ✨ Key Capabilities
-
-- **🎙️ Intelligent Ingestion**: Extracts structured micro-tasks from messy inputs—like voice transcripts, forwarded emails, or quickly jotted notes.
-- **📅 Interactive Timeline**: Automatically schedules your tasks around existing commitments, displaying them on a fluid, drag-and-drop timeline.
-- **🤖 AI Chat Assistant**: Powered by the Gemini API, your shadow assistant can reorganize your day, summarize briefs, and prioritize what matters.
-- **🎯 Focus Mode**: A dedicated, distraction-free execution environment that tracks your active time and prevents context switching.
-- **📊 Analytics Dashboard**: Visualize your productivity with Recharts-powered graphs, tracking completion rates, focus hours, and priority burndown.
-- **🔒 Secure Data**: Integrated with Firebase Authentication and Firestore to keep your data synced and private. We ensure sensitive configurations (`firebase-applet-config.json`) are Git-ignored!
-
 ## 🛠️ Tech Stack
 
-- **Frontend**: React 19, TypeScript, Vite
-- **Styling**: Tailwind CSS, Framer Motion (`motion/react`)
-- **Visualizations**: Recharts
-- **Backend & Database**: Firebase (Auth, Firestore), Express (Custom Server)
-- **AI**: Google Gen AI SDK (`@google/genai`)
+- **Frontend:** React 19, TypeScript, Vite
+- **Styling:** Tailwind CSS, Framer Motion (`motion/react`)
+- **Visualizations:** Recharts
+- **Backend & Database:** Firebase (Auth, Firestore), Express (Custom Server)
+- **AI:** Google Gen AI SDK (`@google/genai`)
 
 ## 🚀 Getting Started
 
