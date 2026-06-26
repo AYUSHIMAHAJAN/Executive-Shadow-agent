@@ -3,6 +3,8 @@
 An autonomous planning and scheduling assistant that extracts micro-tasks from messy briefs, emails, and voice transcripts, and arranges them on an interactive timeline calendar. Built to bring order to chaos and keep you in a flow state.
 
 ---
+** Landing Page of Executive Shadow Agent
+![landing Page](assets/welcomepage.png)
 
 ## ✨ Core Features & How They Work
 
@@ -15,7 +17,7 @@ An autonomous planning and scheduling assistant that extracts micro-tasks from m
 ![Interactive Scheduling Timeline](assets/dailySchedule.png)
 
 ### 3. Distraction-Free Focus Mode
-**How it works:** When it's time to execute, enter "Focus Mode." The interface strips away all distractions, showing only the active task, a timer tracking your focused minutes, and essential controls to complete or pause the task.
+**How it works:** When it's time to execute, enter "Focus Mode." The interface strips away all distractions, showing only the active task, a timer tracking your focused minutes, and essential controls to complete or pause the task. Mark the task complete once you are all set.
 ![Distraction-Free Focus Mode](assets/image.png)
 
 
