@@ -29,7 +29,10 @@ An autonomous planning and scheduling assistant that extracts micro-tasks from m
 **How it works:** In addition to AI extraction, you can directly add items to your daily schedule or deadline list. Just click the "Add" button in the respective section.
 - **Example 1 (Schedule):** Add a custom time block: *10:00 AM - Sync with Marketing Team*
 - **Example 2 (Deadline):** Add a hard deadline directly: *Submit Quarterly Report by Friday 5:00 PM*
-> *[📸 Screenshot Placeholder: Show the manual add inputs for daily schedules and deadlines]*
+![ Manual Daily Schedule & Deadline Management](assets/dailySchedule1.png)
+![ Manual Daily Schedule & Deadline Management](assets/dailySchedule2.png)
+![Manual Daily Schedule & Deadline Management](assets/deadline1.png)
+![Manual Daily Schedule & Deadline Management](assets/deadline2.png)
 
 ### 6. Proactive Alerting & Email Notifications
 **How it works:** The assistant actively monitors your deadlines. As tasks approach their due time, you'll receive in-app visual alerts.
