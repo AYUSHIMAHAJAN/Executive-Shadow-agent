@@ -378,8 +378,10 @@ export default function App() {
 
       try {
         if ("speechSynthesis" in window) {
-          const utterance = new SpeechSynthesisUtterance("");
-          utterance.volume = 0;
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(" ");
+          utterance.volume = 0.01;
+          utterance.rate = 10;
           window.speechSynthesis.speak(utterance);
         }
       } catch (e) {
@@ -713,6 +715,9 @@ export default function App() {
     window.speechSynthesis.cancel(); // Clears queue instantly
     const utterance = new SpeechSynthesisUtterance(text);
     
+    // Store globally to prevent Chrome garbage collection mid-speech
+    (window as any)._currentUtterance = utterance;
+
     const voices = window.speechSynthesis.getVoices();
     // Prefer clean high quality sounding voices
     const targetVoice = voices.find(v => 
@@ -725,6 +730,7 @@ export default function App() {
     
     utterance.rate = 1.05;
     utterance.pitch = 1.0;
+    utterance.volume = 1.0;
 
     utterance.onstart = () => setIsSpeaking(true);
     utterance.onend = () => setIsSpeaking(false);
@@ -1250,13 +1256,13 @@ export default function App() {
             sender: "assistant",
             text: textSummary,
             timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-            bulletTasks: parsed,
-            deadlines: data.deadlines || []
+            bulletTasks: data.is_schedule_modified ? parsed : undefined,
+            deadlines: data.is_schedule_modified ? (data.deadlines || []) : undefined
           }
         ]);
 
         if (enableVoiceAssistant) {
-          speakText(`Successfully structured ${parsed.length} tasks matching your requirements.`);
+          speakText(textSummary);
         }
       } else {
         throw new Error("Parsing failure: Tasks payload missing.");

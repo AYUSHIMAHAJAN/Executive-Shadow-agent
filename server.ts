@@ -85,7 +85,7 @@ Preserve existing tasks and structured deadlines unless the user's input asks to
 - structuredDeadlines: array of deadline objects
 - logic: string[] of step-by-step assistant logic for planning decisions (why you broke things down how you did)
 - tasks: array of objects { id: string, task_name: string, estimated_minutes: number, priority: 'High'|'Medium'|'Low', reasoning_justification: string, isCompleted: boolean } representing the schedule_tasks_in_calendar tool parameters
-- reply_message: A direct conversational reply.`,
+- reply_message: A highly interactive conversational reply. Always summarize your understanding of the user's question and explain what you did in a friendly, natural way. If the user explicitly asks to see their detailed schedule or tasks, you SHOULD list them out clearly in your message in a highly interactive and structured manner. Otherwise, do not list them all out. If the user asks a question, answer it directly and comprehensively. Be conversational, helpful, and provide a rich and engaging summary.`,
         responseMimeType: "application/json",
         responseSchema: {
           type: Type.OBJECT,

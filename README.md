@@ -18,9 +18,10 @@ An autonomous planning and scheduling assistant that extracts micro-tasks from m
 **How it works:** When it's time to execute, enter "Focus Mode." The interface strips away all distractions, showing only the active task, a timer tracking your focused minutes, and essential controls to complete or pause the task.
 > *[📸 Screenshot Placeholder: Show the clean, minimalist Focus Mode screen with the active timer]*
 
-### 4. AI-Powered Chat Assistant
-**How it works:** Need to reorganize your day or summarize a brief? Open the Chat Assistant. Powered by the Gemini API, it acts as your "Shadow Assistant," understanding your schedule and helping you prioritize on the fly.
-> *[📸 Screenshot Placeholder: Show the Chat Assistant panel with an example conversation]*
+### 4. AI-Powered Voice & Text Chat Assistant
+**How it works:** Need to reorganize your day or summarize a brief? Open the Chat Assistant. Powered by the Gemini API, it acts as your "Shadow Assistant," understanding your schedule and helping you prioritize on the fly. You can interact via text or go hands-free using the microphone.
+- **Example:** Click the mic and say: *"Move my 2 PM meeting to 4 PM"* or *"What are my top priorities for today?"*
+
 
 ### 5. Manual Daily Schedule & Deadline Management
 **How it works:** In addition to AI extraction, you can directly add items to your daily schedule or deadline list. Just click the "Add" button in the respective section.
@@ -28,17 +29,12 @@ An autonomous planning and scheduling assistant that extracts micro-tasks from m
 - **Example 2 (Deadline):** Add a hard deadline directly: *Submit Quarterly Report by Friday 5:00 PM*
 > *[📸 Screenshot Placeholder: Show the manual add inputs for daily schedules and deadlines]*
 
-### 6. Voice-Enabled Chat Assistant
-**How it works:** Interact hands-free with your AI shadow assistant. You can use the microphone to issue voice commands, and the assistant can respond to manage your day.
-- **Example:** Click the mic and say: *"Move my 2 PM meeting to 4 PM"* or *"What are my top priorities for today?"*
-> *[📸 Screenshot Placeholder: Show the Chat Assistant with the microphone active]*
-
-### 7. Proactive Alerting & Email Notifications
+### 6. Proactive Alerting & Email Notifications
 **How it works:** The assistant actively monitors your deadlines. As tasks approach their due time, you'll receive in-app visual alerts.
 - **1-Hour Email Alerts:** If a critical task is due within 1 hour, the system automatically dispatches an email notification via the Gmail API to ensure you never miss a deadline.
 > *[📸 Screenshot Placeholder: Show a deadline with a 1-hour red alert badge and an email sent notification]*
 
-### 8. Productivity Analytics Dashboard
+### 7. Productivity Analytics Dashboard
 **How it works:** Track your progress over time. The analytics dashboard visualizes your completed tasks, focus hours, and priority burndown using interactive charts, giving you insights into your most productive times.
 > *[📸 Screenshot Placeholder: Show the Analytics Dashboard with Recharts visualizations]*
 
