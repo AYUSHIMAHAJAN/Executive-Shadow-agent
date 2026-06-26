@@ -1,9 +1,10 @@
 # Executive Shadow Assistant 🕵️‍♂️💼
 
-An autonomous planning and scheduling assistant that extracts micro-tasks from messy briefs, emails, and voice transcripts, and arranges them on an interactive timeline calendar. Built to bring order to chaos and keep you in a flow state.
+Students, professionals, and entrepreneurs frequently miss deadlines and important commitments because traditional productivity tools rely on passive, easy-to-ignore reminders. Executive Shadow is an AI-powered productivity companion built to solve this. Instead of just reminding you of what you missed, it proactively assists you in planning, prioritizing, and completing tasks before deadlines slip through the cracks.
+Moving beyond passive to-do lists, Executive Shadow acts as an autonomous planning and scheduling assistant. It extracts actionable micro-tasks from messy briefs, emails, and voice transcripts, and arranges them on an interactive timeline calendar. Built to bring order to chaos, it helps you take meaningful action, make better decisions, and stay in a flow state
 
 ---
-### 1. Intelligent Task Ingestion
+### Executive Shadow Agent Landing Page
 ![landing Page](assets/welcomepage.png)
 
 ## ✨ Core Features & How They Work
