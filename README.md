@@ -1,4 +1,6 @@
-# Executive Shadow Assistant 🕵️‍♂️💼
+ 
+
+### What is Executive Shadow Assistant 🕵️‍♂️💼
 
 Students, professionals, and entrepreneurs frequently miss deadlines and important commitments because traditional productivity tools rely on passive, easy-to-ignore reminders. Executive Shadow is an AI-powered productivity companion built to solve this. Instead of just reminding you of what you missed, it proactively assists you in planning, prioritizing, and completing tasks before deadlines slip through the cracks.
 Moving beyond passive to-do lists, Executive Shadow acts as an autonomous planning and scheduling assistant. It extracts actionable micro-tasks from messy briefs, emails, and voice transcripts, and arranges them on an interactive timeline calendar. Built to bring order to chaos, it helps you take meaningful action, make better decisions, and stay in a flow state
@@ -11,15 +13,19 @@ Moving beyond passive to-do lists, Executive Shadow acts as an autonomous planni
 
 ### 1. Intelligent Task Ingestion
 **How it works:** Paste in messy, unstructured text (like a raw voice transcript or a forwarded email chain). The AI automatically parses the text, extracts actionable micro-tasks, assigns priorities, and estimates time requirements. 
+
 ![Intelligent Task Ingestion](assets/chat.png)
+
 ![Intelligent Task Ingestion](assets/chat2.png)
 
 ### 2. Interactive Scheduling Timeline
 **How it works:** Once tasks are extracted, they are automatically arranged on your daily timeline. You can view your schedule hour-by-hour, ensuring deadlines are met and tasks fit perfectly around your existing calendar commitments.
+
 ![Interactive Scheduling Timeline](assets/dailySchedule.png)
 
 ### 3. Distraction-Free Focus Mode
 **How it works:** When it's time to execute, enter "Focus Mode." The interface strips away all distractions, showing only the active task, a timer tracking your focused minutes, and essential controls to complete or pause the task. Mark the task complete once you are all set.
+
 ![Distraction-Free Focus Mode](assets/image.png)
 
 
@@ -34,8 +40,11 @@ Moving beyond passive to-do lists, Executive Shadow acts as an autonomous planni
 - **Example 1 (Schedule):** Add a custom time block: *10:00 AM - Sync with Marketing Team*
 - **Example 2 (Deadline):** Add a hard deadline directly: *Submit Quarterly Report by Friday 5:00 PM*
 ![ Manual Daily Schedule & Deadline Management](assets/dailySchedule2.png)
+
 ![ Manual Daily Schedule & Deadline Management](assets/dailySchedule1.png)
+
 ![Manual Daily Schedule & Deadline Management](assets/deadline2.png)
+
 ![Manual Daily Schedule & Deadline Management](assets/deadline1.png)
 
 
@@ -43,6 +52,7 @@ Moving beyond passive to-do lists, Executive Shadow acts as an autonomous planni
 **How it works:** The assistant actively monitors your deadlines. As tasks approach their due time, you'll receive in-app visual alerts.
 - **1-Hour Email Alerts:** If a critical task is due within 1 hour, the system automatically dispatches an email notification via the Gmail API to ensure you never miss a deadline.
 ![Proactive Alerting & Email Notifications](assets/alerts.png)
+
 ![Proactive Alerting & Email Notifications](assets/email.png)
 
 ### 7. Productivity Analytics Dashboard
