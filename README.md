@@ -12,11 +12,11 @@ An autonomous planning and scheduling assistant that extracts micro-tasks from m
 
 ### 2. Interactive Scheduling Timeline
 **How it works:** Once tasks are extracted, they are automatically arranged on your daily timeline. You can view your schedule hour-by-hour, ensuring deadlines are met and tasks fit perfectly around your existing calendar commitments.
-> *[📸 Screenshot Placeholder: Show the daily timeline view with scheduled tasks and deadlines]*
+Screenshot 2026-06-26 at 9.46.17 PM
 
 ### 3. Distraction-Free Focus Mode
 **How it works:** When it's time to execute, enter "Focus Mode." The interface strips away all distractions, showing only the active task, a timer tracking your focused minutes, and essential controls to complete or pause the task.
-> *[📸 Screenshot Placeholder: Show the clean, minimalist Focus Mode screen with the active timer]*
+
 
 ### 4. AI-Powered Voice & Text Chat Assistant
 **How it works:** Need to reorganize your day or summarize a brief? Open the Chat Assistant. Powered by the Gemini API, it acts as your "Shadow Assistant," understanding your schedule and helping you prioritize on the fly. You can interact via text or go hands-free using the microphone.
