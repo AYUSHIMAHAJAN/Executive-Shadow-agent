@@ -3,14 +3,15 @@
 An autonomous planning and scheduling assistant that extracts micro-tasks from messy briefs, emails, and voice transcripts, and arranges them on an interactive timeline calendar. Built to bring order to chaos and keep you in a flow state.
 
 ---
-** Landing Page of Executive Shadow Agent
+### 1. Intelligent Task Ingestion
 ![landing Page](assets/welcomepage.png)
 
 ## ✨ Core Features & How They Work
 
 ### 1. Intelligent Task Ingestion
 **How it works:** Paste in messy, unstructured text (like a raw voice transcript or a forwarded email chain). The AI automatically parses the text, extracts actionable micro-tasks, assigns priorities, and estimates time requirements. 
-> *[📸 Screenshot Placeholder: Show the text input area with a raw transcript and the resulting parsed task cards]*
+![Intelligent Task Ingestion](assets/chat.png)
+![Intelligent Task Ingestion](assets/chat2.png)
 
 ### 2. Interactive Scheduling Timeline
 **How it works:** Once tasks are extracted, they are automatically arranged on your daily timeline. You can view your schedule hour-by-hour, ensuring deadlines are met and tasks fit perfectly around your existing calendar commitments.
@@ -40,7 +41,8 @@ An autonomous planning and scheduling assistant that extracts micro-tasks from m
 ### 6. Proactive Alerting & Email Notifications
 **How it works:** The assistant actively monitors your deadlines. As tasks approach their due time, you'll receive in-app visual alerts.
 - **1-Hour Email Alerts:** If a critical task is due within 1 hour, the system automatically dispatches an email notification via the Gmail API to ensure you never miss a deadline.
-> *[📸 Screenshot Placeholder: Show a deadline with a 1-hour red alert badge and an email sent notification]*
+![Proactive Alerting & Email Notifications](assets/alerts.png)
+![Proactive Alerting & Email Notifications](assets/email.png)
 
 ### 7. Productivity Analytics Dashboard
 **How it works:** Track your progress over time. The analytics dashboard visualizes your completed tasks, focus hours, and priority burndown using interactive charts, giving you insights into your most productive times.
