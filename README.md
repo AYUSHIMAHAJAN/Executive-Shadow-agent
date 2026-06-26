@@ -12,15 +12,17 @@ An autonomous planning and scheduling assistant that extracts micro-tasks from m
 
 ### 2. Interactive Scheduling Timeline
 **How it works:** Once tasks are extracted, they are automatically arranged on your daily timeline. You can view your schedule hour-by-hour, ensuring deadlines are met and tasks fit perfectly around your existing calendar commitments.
-![Interactive Scheduling Timeline](assets/image.png)
+![Interactive Scheduling Timeline](assets/dailySchedule.png)
 
 ### 3. Distraction-Free Focus Mode
 **How it works:** When it's time to execute, enter "Focus Mode." The interface strips away all distractions, showing only the active task, a timer tracking your focused minutes, and essential controls to complete or pause the task.
+![Distraction-Free Focus Mode](assets/image.png)
 
 
 ### 4. AI-Powered Voice & Text Chat Assistant
 **How it works:** Need to reorganize your day or summarize a brief? Open the Chat Assistant. Powered by the Gemini API, it acts as your "Shadow Assistant," understanding your schedule and helping you prioritize on the fly. You can interact via text or go hands-free using the microphone.
 - **Example:** Click the mic and say: *"Move my 2 PM meeting to 4 PM"* or *"What are my top priorities for today?"*
+![AI-Powered Voice & Text Chat Assistant](assets/chatbot.png)
 
 
 ### 5. Manual Daily Schedule & Deadline Management
@@ -36,7 +38,7 @@ An autonomous planning and scheduling assistant that extracts micro-tasks from m
 
 ### 7. Productivity Analytics Dashboard
 **How it works:** Track your progress over time. The analytics dashboard visualizes your completed tasks, focus hours, and priority burndown using interactive charts, giving you insights into your most productive times.
-> *[📸 Screenshot Placeholder: Show the Analytics Dashboard with Recharts visualizations]*
+![Productivity Analytics Dashboard](assets/analytic.png)
 
 ---
 
