@@ -130,6 +130,7 @@ By eliminating the friction of manual planning, Executive Shadow helps you spend
 - **Backend & Database:** Firebase (Auth, Firestore), Express
 - **Integrations:** Gmail API (for sending emails)
 - **AI:** Google AI Studio, Antigravity Agent, Gemini API
+- **Deployment:** Google Cloud
 
 ## 🚀 Getting Started
 
