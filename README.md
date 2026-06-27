@@ -86,6 +86,7 @@ By eliminating the friction of manual planning, Executive Shadow helps you spend
 - **Example:** Click the mic and say: *"Move my 2 PM meeting to 4 PM"* or *"What are my top priorities for today?"*
 ![AI-Powered Voice & Text Chat Assistant](assets/chatbot.png)
 
+![AI-Powered Voice & Text Chat Assistant](assets/voice-ai-assistance.png)
 
 ### 5. Manual Daily Schedule & Deadline Management
 **How it works:** In addition to AI extraction, you can directly add items to your daily schedule or deadline list. Just click the "Add" button in the respective section.
