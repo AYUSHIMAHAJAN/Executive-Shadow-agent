@@ -70,9 +70,10 @@ By eliminating the friction of manual planning, Executive Shadow helps you spend
 
 ![Intelligent Task Ingestion](assets/chat2.png)
 
+![Intelligent Task Ingestion](assets/chatbot2.png)
+
 ![Intelligent Task Ingestion](assets/chatbot1.png)
 
-![Intelligent Task Ingestion](assets/chatbot2.png)
 
 ### 2. Interactive Scheduling Timeline
 **How it works:** Once tasks are extracted, they are automatically arranged on your daily timeline. You can view your schedule hour-by-hour, ensuring deadlines are met and tasks fit perfectly around your existing calendar commitments.
