@@ -70,6 +70,10 @@ By eliminating the friction of manual planning, Executive Shadow helps you spend
 
 ![Intelligent Task Ingestion](assets/chat2.png)
 
+![Intelligent Task Ingestion](assets/chatbot1.png)
+
+![Intelligent Task Ingestion](assets/chatbot2.png)
+
 ### 2. Interactive Scheduling Timeline
 **How it works:** Once tasks are extracted, they are automatically arranged on your daily timeline. You can view your schedule hour-by-hour, ensuring deadlines are met and tasks fit perfectly around your existing calendar commitments.
 
@@ -84,6 +88,7 @@ By eliminating the friction of manual planning, Executive Shadow helps you spend
 ### 4. AI-Powered Voice & Text Chat Assistant
 **How it works:** Need to reorganize your day or summarize a brief? Open the Chat Assistant. Powered by the Gemini API, it acts as your "Shadow Assistant," understanding your schedule and helping you prioritize on the fly. You can interact via text or go hands-free using the microphone.
 - **Example:** Click the mic and say: *"Move my 2 PM meeting to 4 PM"* or *"What are my top priorities for today?"*
+
 ![AI-Powered Voice & Text Chat Assistant](assets/chatbot.png)
 
 ![AI-Powered Voice & Text Chat Assistant](assets/voice-ai-assistance.png)
@@ -106,7 +111,7 @@ By eliminating the friction of manual planning, Executive Shadow helps you spend
 **How it works:** The assistant actively monitors your deadlines. As tasks approach their due time, you'll receive in-app visual alerts.
 - **1-Hour Email Alerts:** If a critical task is due within 1 hour, the system automatically dispatches an email notification via the Gmail API to ensure you never miss a deadline.
 
-![Proactive Alerting & Email Notifications](assets/alerts.png)
+![Proactive Alerting & Email Notifications](assets/alert.png)
 
 ![Proactive Alerting & Email Notifications](assets/email.png)
 
