@@ -114,7 +114,7 @@ By eliminating the friction of manual planning, Executive Shadow helps you spend
 
 ![Proactive Alerting & Email Notifications](assets/alert.png)
 
-![Proactive Alerting & Email Notifications](assets/email.png)
+![Proactive Alerting & Email Notifications](assets/emails.png)
 
 ### 7. Productivity Analytics Dashboard
 **How it works:** Track your progress over time. The analytics dashboard visualizes your completed tasks, focus hours, and priority burndown using interactive charts, giving you insights into your most productive times.
