@@ -6,6 +6,8 @@ export interface Task {
   description: string;
   durationMinutes: number;
   priority: Priority;
+  energy_level?: "High" | "Medium" | "Low";
+  tags?: string[];
   dependencyId?: string;
   // Dynamic schedule fields computed client-side based on duration, sequence and work start times
   startTime?: string; // ISO string
@@ -53,4 +55,3 @@ export interface ChatSession {
   updatedAt: string;
   messages: ChatMessage[];
 }
-

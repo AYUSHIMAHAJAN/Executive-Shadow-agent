@@ -15,20 +15,15 @@ import {
   collection,
   onSnapshot
 } from "firebase/firestore";
-import firebaseConfigJson from "../../firebase-applet-config.json";
+import config from "../../firebase-applet-config.json";
 
-// The config is loaded from the checked-in config file.
-const firebaseConfig = {
-  ...firebaseConfigJson
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(config);
 export const auth = getAuth(app);
-export const db = getFirestore(app);
+export const db = getFirestore(app, (config as any).firestoreDatabaseId);
 
 // Authentication helper structures
 export const googleProvider = new GoogleAuthProvider();
+googleProvider.addScope('https://www.googleapis.com/auth/gmail.send');
 googleProvider.setCustomParameters({
   prompt: 'select_account'
 });

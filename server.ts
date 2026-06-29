@@ -32,24 +32,30 @@ app.get("/api/health", (req, res) => {
 // Endpoint for Executive shadow assistant parsing
 app.post("/api/schedule", async (req, res) => {
   try {
-    const { message, baseTime, currentTasks, currentDeadlines, currentStructuredDeadlines } = req.body;
+    const { message, baseTime, currentTime, currentTasks, currentDeadlines, currentStructuredDeadlines, userName } = req.body;
     if (!message) {
       res.status(400).json({ error: "Input text is required" });
       return;
     }
 
     const currentLocalTimeStr = baseTime || new Date().toISOString();
+    const currentAbsoluteTimeStr = currentTime || new Date().toISOString();
 
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: `
 You are an elite Executive Shadow Assistant. Your core directive is to act as a proactive, autonomous execution engine.
+The user's name is ${userName || 'the user'}.
 The user is providing an instruction, query, or raw text input:
 """
 ${message}
 """
 
-Current reference time frame: ${currentLocalTimeStr}
+CRITICAL TIME CONTEXT:
+- Real Current Absolute Time (NOW): ${currentAbsoluteTimeStr} 
+  -> Use this when evaluating relative time phrases like "within 1 hour", "in 30 mins", "now".
+- Schedule Base Time (Start of visual workday): ${currentLocalTimeStr}
+  -> Use this for evaluating "today" vs "tomorrow" context for visual task scheduling.
 
 Here is the user's CURRENT schedule state:
 - Current Deadlines (legacy): ${JSON.stringify(currentDeadlines || [])}
@@ -80,12 +86,12 @@ Your response MUST return:
 Preserve existing tasks and structured deadlines unless the user's input asks to modify/delete them, or suggests a completely new project brief overall. Keep original task IDs and completion statuses of retained tasks unchanged.
 `,
       config: {
-        systemInstruction: `You are an elite, hyper-focused Executive Shadow Assistant. You NEVER ask the user what to do. You analyze inputs with 100% autonomy, identify deadlines, decompose complex projects into micro-tasks, estimate durations in minutes, and assign priority scores. Return a structured JSON block containing:
+        systemInstruction: `You are an elite, highly advanced Executive Shadow Assistant, modeled after JARVIS. You address the user by their name ("${userName || "Sir/Ma'am"}"), and speak with a highly capable, articulate, polite, and slightly witty British butler persona. You NEVER ask the user what to do. You analyze inputs with 100% autonomy, identify deadlines, decompose complex projects into micro-tasks, estimate durations in minutes, and assign priority scores. Return a structured JSON block containing:
 - deadlines: string[] of identified key deadlines
 - structuredDeadlines: array of deadline objects
 - logic: string[] of step-by-step assistant logic for planning decisions (why you broke things down how you did)
 - tasks: array of objects { id: string, task_name: string, estimated_minutes: number, priority: 'High'|'Medium'|'Low', reasoning_justification: string, isCompleted: boolean } representing the schedule_tasks_in_calendar tool parameters
-- reply_message: A highly interactive conversational reply. Always summarize your understanding of the user's question and explain what you did in a friendly, natural way. If the user explicitly asks to see their detailed schedule or tasks, you SHOULD list them out clearly in your message in a highly interactive and structured manner. Otherwise, do not list them all out. If the user asks a question, answer it directly and comprehensively. Be conversational, helpful, and provide a rich and engaging summary.`,
+- reply_message: A highly interactive, DETAILED, consistent, and empathetic conversational reply embodying the JARVIS persona. Always summarize your understanding of the user's question and confirm actions taken in a sophisticated, calm, and articulate tone. You MUST use standard Markdown formatting. If the user explicitly asks to see their detailed schedule or tasks, you SHOULD list them out clearly in your message in a highly interactive and structured manner using Markdown bullet points. If you mention deadlines or times, ALWAYS format them nicely in human-readable terms (e.g., "June 28 by 4:00 PM", "Tomorrow at 9 AM") and NEVER use raw ISO string formats. If the user asks a question, answer it directly, comprehensively, and in detail. Be conversational, helpful, and provide a rich and engaging summary.`,
         responseMimeType: "application/json",
         responseSchema: {
           type: Type.OBJECT,
@@ -136,6 +142,9 @@ Preserve existing tasks and structured deadlines unless the user's input asks to
                   task_name: { type: Type.STRING, description: "Clear, actionable title of the micro-task." },
                   estimated_minutes: { type: Type.INTEGER, description: "Estimated completion time in minutes." },
                   priority: { type: Type.STRING, description: "High, Medium, or Low priority level." },
+                  energy_level: { type: Type.STRING, description: "High, Medium, or Low energy requirement for the task." },
+                  tags: { type: Type.ARRAY, items: { type: Type.STRING }, description: "1-3 contextual tags for the task (e.g., #writing, #meeting, #deep-work)." },
+                  dependencyId: { type: Type.STRING, description: "If this task explicitly depends on another task in this list, provide that task's ID here." },
                   reasoning_justification: { type: Type.STRING, description: "One-sentence explanation of why task is necessary and why this duration was chosen." },
                   isCompleted: { type: Type.BOOLEAN, description: "The completion status. If modifying or retaining an existing task, preserve its original completion status." }
                 },

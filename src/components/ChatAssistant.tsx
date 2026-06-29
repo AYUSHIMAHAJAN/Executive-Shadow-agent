@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { ChatMessage, Task, ChatSession } from "../types";
 import { MESSY_SAMPLES, MessySample } from "../data";
+import Markdown from "react-markdown";
 
 interface ChatAssistantProps {
   isDark: boolean;
@@ -34,6 +35,8 @@ interface ChatAssistantProps {
   createNewChat: () => void;
   deleteChat: (id: string) => void;
   isListening: boolean;
+  speechError: string;
+  speakText: (text: string, force?: boolean) => void;
   toggleSpeechRecognition: () => void;
   enableVoiceAssistant: boolean;
   setEnableVoiceAssistant: (b: boolean) => void;
@@ -56,6 +59,8 @@ export default function ChatAssistant({
   createNewChat,
   deleteChat,
   isListening,
+  speechError,
+  speakText,
   toggleSpeechRecognition,
   enableVoiceAssistant,
   setEnableVoiceAssistant,
@@ -137,7 +142,7 @@ export default function ChatAssistant({
                   isDark ? "text-white" : "text-slate-900"
                 }`}
               >
-                Executive Shadow AI
+                Shadow Agent
                 <span className="inline-flex items-center gap-1 bg-emerald-500/10 px-1.5 py-0.5 rounded text-[8px] font-mono text-emerald-500 uppercase tracking-widest font-bold">
                   <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping" />
                   Online
@@ -177,7 +182,14 @@ export default function ChatAssistant({
               <input
                 type="checkbox"
                 checked={enableVoiceAssistant}
-                onChange={(e) => setEnableVoiceAssistant(e.target.checked)}
+                onChange={(e) => {
+                  setEnableVoiceAssistant(e.target.checked);
+                  if (e.target.checked) {
+                    speakText("Voice feedback activated.", true);
+                  } else {
+                    window.speechSynthesis?.cancel();
+                  }
+                }}
                 className="hidden"
               />
               {enableVoiceAssistant ? (
@@ -203,8 +215,8 @@ export default function ChatAssistant({
                 key={msg.id}
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`flex gap-3.5 max-w-[85%] ${
-                  msg.sender === "user" ? "ml-auto flex-row-reverse" : "mr-auto"
+                className={`flex gap-3.5 ${
+                  msg.sender === "user" ? "ml-auto flex-row-reverse max-w-[85%]" : "mr-auto max-w-[95%]"
                 }`}
               >
                 {/* Avatar Icon */}
@@ -221,7 +233,7 @@ export default function ChatAssistant({
                 {/* Message Body Bubble */}
                 <div className="space-y-1.5 flex flex-col">
                   <div
-                    className={`rounded-2xl p-4 text-xs leading-relaxed transition-colors duration-200 ${
+                    className={`rounded-2xl p-4 text-sm leading-relaxed transition-colors duration-200 ${
                       msg.sender === "user"
                         ? isDark
                           ? "bg-rose-650 text-white rounded-tr-none"
@@ -231,8 +243,14 @@ export default function ChatAssistant({
                         : "bg-slate-50 border border-slate-200 text-slate-800 rounded-tl-none"
                     }`}
                   >
-                    {/* Preserve multiline breaks */}
-                    <div className="whitespace-pre-line font-sans">{msg.text}</div>
+                    {/* Render with markdown or preserve multiline breaks */}
+                    {msg.sender === "user" ? (
+                      <div className="whitespace-pre-line font-sans">{msg.text}</div>
+                    ) : (
+                      <div className="markdown-body font-sans text-sm">
+                        <Markdown>{msg.text}</Markdown>
+                      </div>
+                    )}
                   </div>
                   <span
                     className={`text-[9px] font-mono self-end ${
@@ -250,7 +268,7 @@ export default function ChatAssistant({
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex gap-3.5 mr-auto max-w-[85%]"
+                className="flex gap-3.5 mr-auto max-w-[95%]"
               >
                 <div className="w-8 h-8 rounded-full bg-rose-600 border border-rose-500 text-white flex items-center justify-center shrink-0">
                   <Bot className="w-4 h-4" />
@@ -266,7 +284,7 @@ export default function ChatAssistant({
                     <div className="flex items-center gap-2">
                       <Sparkles className="w-4 h-4 text-rose-500 animate-spin" />
                       <span className="font-mono font-bold text-slate-400">
-                        Executive Shadow is thinking and analyzing...
+                        Shadow Agent is thinking and analyzing...
                       </span>
                     </div>
                   </div>
@@ -320,6 +338,12 @@ export default function ChatAssistant({
 
           <div className="flex gap-2.5 items-end relative">
             <div className="relative flex-1">
+              {speechError && (
+                <div className={`absolute -top-10 left-0 right-0 text-[10px] font-mono border rounded-lg p-2 flex items-center gap-1.5 shadow-sm z-20 ${isDark ? "bg-rose-950/90 text-rose-400 border-rose-900/50" : "bg-rose-50/95 text-rose-600 border-rose-150 backdrop-blur"}`}>
+                  <AlertTriangle className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+                  <span className="truncate">Mic Error: {speechError}.</span>
+                </div>
+              )}
               <textarea
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
