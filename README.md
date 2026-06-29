@@ -134,6 +134,7 @@ By eliminating the friction of manual planning, Executive Shadow helps you spend
 
 ## 🚀 Getting Started
 
+
 1. **Install Dependencies**
    ```bash
    npm install
@@ -149,7 +150,19 @@ By eliminating the friction of manual planning, Executive Shadow helps you spend
 3. **Firebase Setup**
    Ensure your Firebase project is configured and credentials are added to `firebase-applet-config.json` (this file is safely ignored by Git to protect your secrets).
 
-4. **Run the Development Server**
+4. **Enable Email Notifications**
+   To allow the app to send deadline alerts via email, you will need a dedicated Google Account configured on the server.
+   - Go to your Google Account Settings > Security.
+   - Enable 2-Step Verification.
+   - Generate an **App Password**.
+   - Add the following variables to your `.env` file:
+     ```env
+     GMAIL_USER="your-email@gmail.com"
+     GMAIL_APP_PASSWORD="your-app-password"
+     ```
+   The application's backend will now handle email dispatches automatically without requiring user session token refreshes.
+
+5. **Run the Development Server**
    ```bash
    npm run dev
    ```

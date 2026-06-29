@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { GoogleGenAI, Type } from "@google/genai";
 import { createServer as createViteServer } from "vite";
 import { google } from "googleapis";
+import nodemailer from "nodemailer";
 
 dotenv.config();
 
@@ -11,6 +12,15 @@ const app = express();
 app.use(express.json());
 
 const PORT = 3000;
+
+// Configure Nodemailer transporter
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD,
+  },
+});
 
 // Initialize Gemini client (server-side only)
 const ai = new GoogleGenAI({
@@ -27,6 +37,36 @@ const ai = new GoogleGenAI({
 // Root API Healthcheck
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", serverTime: new Date().toISOString() });
+});
+
+// Endpoint to send emails via Nodemailer
+app.post("/api/send-email", async (req, res) => {
+  const { toEmail, subject, htmlBody } = req.body;
+
+  if (!toEmail || !subject || !htmlBody) {
+    res.status(400).json({ error: "Missing required email fields" });
+    return;
+  }
+
+  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+    console.error("GMAIL_USER or GMAIL_APP_PASSWORD is not set in the environment.");
+    res.status(500).json({ error: "Email service is not configured on the server." });
+    return;
+  }
+
+  try {
+    const info = await transporter.sendMail({
+      from: `"Executive Shadow Assistant" <${process.env.GMAIL_USER}>`,
+      to: toEmail,
+      subject: subject,
+      html: htmlBody,
+    });
+    console.log("Email sent successfully: ", info.messageId);
+    res.json({ success: true, messageId: info.messageId });
+  } catch (error: any) {
+    console.error("Error sending email:", error);
+    res.status(500).json({ error: "Failed to send email", details: error.message });
+  }
 });
 
 // Endpoint for Executive shadow assistant parsing
