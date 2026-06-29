@@ -39,6 +39,88 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok", serverTime: new Date().toISOString() });
 });
 
+// Store deadlines in memory for background processing
+interface ServerDeadline {
+  id: string;
+  title: string;
+  dueDateTime: string;
+  isCompleted?: boolean;
+  alerted1h?: boolean;
+  userEmail: string;
+}
+
+let activeServerDeadlines: ServerDeadline[] = [];
+
+// Endpoint to sync deadlines from the client
+app.post("/api/sync-deadlines", (req, res) => {
+  const { email, deadlines } = req.body;
+  if (!email || !Array.isArray(deadlines)) {
+    res.status(400).json({ error: "Invalid payload" });
+    return;
+  }
+
+  // Remove existing deadlines for this user
+  activeServerDeadlines = activeServerDeadlines.filter(d => d.userEmail !== email);
+  
+  // Add new un-notified deadlines
+  const unnotified = deadlines
+    .filter((d: any) => !d.isCompleted && !d.alerted1h)
+    .map((d: any) => ({ ...d, userEmail: email }));
+    
+  activeServerDeadlines.push(...unnotified);
+  res.json({ success: true, activeCount: activeServerDeadlines.length });
+});
+
+// Background worker to check deadlines every minute
+setInterval(async () => {
+  if (activeServerDeadlines.length === 0) return;
+  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) return;
+
+  const nowMs = Date.now();
+  const oneHourMs = 3600 * 1000;
+
+  for (let i = activeServerDeadlines.length - 1; i >= 0; i--) {
+    const dl = activeServerDeadlines[i];
+    const dueTimeMs = new Date(dl.dueDateTime).getTime();
+    const distanceMs = dueTimeMs - nowMs;
+
+    // Check if within 1 hour
+    if (distanceMs > 0 && distanceMs <= oneHourMs) {
+      try {
+        console.log(`Sending background alert to ${dl.userEmail} for "${dl.title}"`);
+        const alertMsg = `"${dl.title}" is due in less than 1 hour!`;
+
+        const htmlContent = `
+          <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+            <h2 style="color: #e63946;">⏰ Deadline Alert</h2>
+            <p style="font-size: 16px;">This is an automated background alert regarding your upcoming deadline:</p>
+            <div style="background-color: #f8f9fa; border-left: 4px solid #e63946; padding: 15px; margin: 20px 0;">
+              <h3 style="margin: 0 0 10px 0; color: #1d3557;">${dl.title}</h3>
+              <p style="margin: 0; font-size: 14px;"><strong>Status:</strong> ${alertMsg}</p>
+            </div>
+            <p style="font-size: 14px; color: #666;">Please review your deadlines in the Executive Shadow dashboard.</p>
+          </div>
+        `;
+
+        await transporter.sendMail({
+          from: `"Executive Shadow" <${process.env.GMAIL_USER}>`,
+          to: dl.userEmail,
+          subject: `Deadline Alert: ${dl.title}`,
+          html: htmlContent,
+        });
+
+        // Remove to prevent duplicate emails
+        activeServerDeadlines.splice(i, 1);
+      } catch (error) {
+        console.error("Background email failed for", dl.userEmail, error);
+      }
+    } else if (distanceMs <= 0) {
+      // Already passed, remove it
+      activeServerDeadlines.splice(i, 1);
+    }
+  }
+}, 30000); // Check every 30 seconds
+
 // Endpoint to send emails via Nodemailer
 app.post("/api/send-email", async (req, res) => {
   const { toEmail, subject, htmlBody } = req.body;
