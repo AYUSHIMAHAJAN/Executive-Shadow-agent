@@ -5,6 +5,8 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { createServer as createViteServer } from "vite";
 import { google } from "googleapis";
 import nodemailer from "nodemailer";
+import * as admin from "firebase-admin";
+import { getFirestore } from "firebase-admin/firestore";
 
 dotenv.config();
 
@@ -12,6 +14,22 @@ const app = express();
 app.use(express.json());
 
 const PORT = 3000;
+
+// Initialize Firebase Admin (Uses Application Default Credentials in deployed Cloud Run)
+// Using project configuration from firebase-applet-config.json
+try {
+  admin.initializeApp({
+    projectId: "project-17988f69-0d8f-45e6-921"
+  });
+} catch (err) {
+  // Ignore initialization errors if already initialized
+}
+
+// Specify the correct Firestore Database ID manually as it is not the default
+const adminDb = getFirestore();
+adminDb.settings({
+  databaseId: "ai-studio-executiveshadowa-2d743f3e-e977-4a5c-86da-5a69f96fc28d"
+});
 
 // Configure Nodemailer transporter
 const transporter = nodemailer.createTransport({
@@ -120,6 +138,84 @@ setInterval(async () => {
     }
   }
 }, 30000); // Check every 30 seconds
+
+// PRODUCTION CRON ENDPOINT: Fetches directly from Firestore database
+// Can be pinged automatically by Cloud Scheduler or cron-job.org
+app.get("/api/cron/process-deadlines", async (req, res) => {
+  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+    res.status(500).json({ error: "Missing email credentials" });
+    return;
+  }
+
+  const nowMs = Date.now();
+  const oneHourMs = 3600 * 1000;
+  let emailsSent = 0;
+
+  try {
+    const usersSnapshot = await adminDb.collection('users').get();
+    
+    for (const userDoc of usersSnapshot.docs) {
+      const userData = userDoc.data();
+      if (!userData.email || !userData.structuredDeadlines || !Array.isArray(userData.structuredDeadlines)) {
+        continue;
+      }
+      
+      let modified = false;
+      const updatedDeadlines = [...userData.structuredDeadlines];
+
+      for (let i = 0; i < updatedDeadlines.length; i++) {
+        const dl = updatedDeadlines[i];
+        if (dl.isCompleted || dl.alerted1h) continue;
+
+        const dueTimeMs = new Date(dl.dueDateTime).getTime();
+        const distanceMs = dueTimeMs - nowMs;
+
+        if (distanceMs > 0 && distanceMs <= oneHourMs) {
+          try {
+            console.log(`[DB CRON] Sending alert to ${userData.email} for "${dl.title}"`);
+            const alertMsg = `"${dl.title}" is due in less than 1 hour!`;
+
+            const htmlContent = `
+              <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+                <h2 style="color: #e63946;">⏰ Deadline Alert</h2>
+                <p style="font-size: 16px;">This is an automated background alert from the Executive Shadow Production Database:</p>
+                <div style="background-color: #f8f9fa; border-left: 4px solid #e63946; padding: 15px; margin: 20px 0;">
+                  <h3 style="margin: 0 0 10px 0; color: #1d3557;">${dl.title}</h3>
+                  <p style="margin: 0; font-size: 14px;"><strong>Status:</strong> ${alertMsg}</p>
+                </div>
+                <p style="font-size: 14px; color: #666;">Please review your deadlines in the Executive Shadow dashboard.</p>
+              </div>
+            `;
+
+            await transporter.sendMail({
+              from: `"Executive Shadow" <${process.env.GMAIL_USER}>`,
+              to: userData.email,
+              subject: `Deadline Alert: ${dl.title}`,
+              html: htmlContent,
+            });
+
+            updatedDeadlines[i].alerted1h = true;
+            modified = true;
+            emailsSent++;
+          } catch (emailError) {
+            console.error(`[DB CRON] Failed sending to ${userData.email}:`, emailError);
+          }
+        }
+      }
+      
+      // If we modified deadlines (i.e. sent alerts), save the updated flags back to the database
+      if (modified) {
+        await userDoc.ref.update({ structuredDeadlines: updatedDeadlines });
+        console.log(`[DB CRON] Updated record for user ${userData.uid} after sending alerts.`);
+      }
+    }
+
+    res.json({ success: true, processedUsers: usersSnapshot.size, emailsSent });
+  } catch (dbError: any) {
+    console.error("[DB CRON] Firebase Admin Error:", dbError);
+    res.status(500).json({ error: "Database processing failed", details: dbError.message });
+  }
+});
 
 // Endpoint to send emails via Nodemailer
 app.post("/api/send-email", async (req, res) => {
